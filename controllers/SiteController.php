@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\tables\Users;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -69,6 +70,27 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
+    public function actionCreate() {
+        $user = new Users();
+        $user->login = 'JustUser';
+        $user->password = md5('qwerty');
+        $user->role_id = 2;
+        $user->save();
+    }
+    public function actionRead() {
+        $user = Users::findOne(1);
+        var_dump($user);
+        exit;
+    }
+    public function actionDelete() {
+        $user = Users::findOne(2);
+        $user->delete();
+        exit;
+    }
+    public function actionTest() {
+
+        var_dump(Users::getUsersWithRole(2));
+    }
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
